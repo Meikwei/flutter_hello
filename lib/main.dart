@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import './model/post.dart';
 void main() {
   runApp(MyApp());
 }
@@ -130,12 +130,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: MaterialApp(
-        home:Scaffold(
-          appBar:AppBar(
-            title:Text('nihao')
-          ),
-          body: Hello(),
-          ),
+        home:Home(),
           theme: ThemeData(
             primarySwatch:Colors.yellow
           ),
@@ -158,6 +153,38 @@ class Hello extends StatelessWidget {
         ),
       ),
       ),
+    );
+  }
+}
+class Home extends StatelessWidget {
+  const Home({Key key}) : super(key: key);
+  Widget _listItemBuilder(BuildContext context, int index){
+    return Container(
+      color:Colors.white,
+      margin:EdgeInsets.all(8.0),
+      child: Column(
+        children:<Widget>[
+          Image.network(
+            posts[index].imageUrl,
+            fit:BoxFit.cover
+            ),
+          SizedBox(height:16.0)
+        ]
+      ),
+    );
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Scaffold(
+          appBar:AppBar(
+            title:Text('nihao')
+          ),
+          body: ListView.builder(
+            itemCount: posts.length,
+            itemBuilder: _listItemBuilder,
+          ),
+          ),
     );
   }
 }
